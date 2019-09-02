@@ -1,0 +1,27 @@
+1) ¿Con qué módulos contará la aplicación?
+- Calls-in-App
+- Busqueda de Taxi
+- posicionamiento GPS
+- Calificación de Conductores
+- Modalidad de Servicio (UberX, UberPool, UberVan, etc.)
+- Sistema de reclamos
+- Sistema de Registro de Usuarios/ Conductores
+- Historal de Rutas
+- Administración de Contactos de Confianza
+- Push-Notifications sobre estados de la aplicación
+
+
+2) ¿Se contará con varias aplicaciones?
+
+Si, ya que se necesitara la aplicacion tanto para los usuarios (Pasajeros),
+como para los conductores (Clientes)
+
+3)¿Con qué sistemas externos tendremos que interactuar?
+
+Service
+- Mapas - Google Maps
+- Pasarela de Pagos - Visa
+
+
+
+
