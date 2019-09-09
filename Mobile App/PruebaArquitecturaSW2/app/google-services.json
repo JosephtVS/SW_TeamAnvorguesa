@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "60750595826",
+    "firebase_url": "https://ingenieria-de-soft.firebaseio.com",
+    "project_id": "ingenieria-de-soft",
+    "storage_bucket": "ingenieria-de-soft.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:60750595826:android:6789f5021ce087781d726b",
+        "android_client_info": {
+          "package_name": "com.evolum.pruebaarquitecturasw2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "60750595826-a5eheasq8qhaca3stbdjop1ei80rbju2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.evolum.pruebaarquitecturasw2",
+            "certificate_hash": "1ad76b3438c1098061b837a1a40ecd28a25a55a2"
+          }
+        },
+        {
+          "client_id": "60750595826-mb59fch6o08ssad668t441tv01po7bse.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVYZgtD6V84YbHR2RCwnrmc7h9Qx8TujU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "60750595826-mb59fch6o08ssad668t441tv01po7bse.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
