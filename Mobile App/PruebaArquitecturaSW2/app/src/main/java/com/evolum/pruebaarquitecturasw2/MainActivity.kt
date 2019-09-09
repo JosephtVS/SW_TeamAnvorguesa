@@ -22,6 +22,9 @@ import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.text.format.DateUtils
+import java.lang.StringBuilder
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 
@@ -45,10 +48,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
         //Conectando a Firebase
         connectFirebaseDB()
 
+        //Inicializando la instancia, se llama al metodo y se pasa el ID de la app
         Stitch.initializeDefaultAppClient(
             resources.getString(R.string.my_app_id)
         )
 
+        //Se llama al metodo para obtener una referencia al cliente
         val stitchAppClient = Stitch.getDefaultAppClient()
 
         stitchAppClient.auth.loginWithCredential(AnonymousCredential())
@@ -61,29 +66,64 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
                     )
 
                 //Obtenemos una referencia a la DB y a la coleccion.
-                val myCollection = mongoClient.getDatabase("test")
+                val myCollection = mongoClient.getDatabase("Test")
                     .getCollection("test_collection")
 
-                //Creando un documento y agregar el campo 'user_id' con el valor del ID de su auth.
+                /*Creando un documento BSON, agregamos el campo 'user_id' con el valor del ID de su auth,
+                y una marca del tiempo*/
                 val myDocument = Document()
                 myDocument["time"] = Date().time
                 myDocument["user_id"] = it.id
 
+                //Insertamos el documento llamando al metodo 'insertOne'.
+                /*Debido a que se ejecuta de forma asíncrona, se necesitará otro detector de éxito
+                para verificar si la operación de inserción se realizó correctamente.*/
                 val insertTask = myCollection.insertOne(myDocument)
-                insertTask.addOnCompleteListener(OnCompleteListener<RemoteInsertOneResult> { task ->
-                    if (task.isSuccessful) {
+                insertTask.addOnCompleteListener{ task ->
+                    if (task.isSuccessful)
+                    {
                         Log.d(
                             "app", String.format(
-                                "successfully inserted item with id %s",
+                                "Documento insertado exitosamente con id %s",
                                 task.result!!.insertedId
                             )
                         )
-                    } else {
-                        Log.e("app", "failed to insert document with: ", task.exception)
                     }
-                })
-            }
+                    else
+                    {
+                        Log.e("app", "No se pudo insertar el documento con: ", task.exception)
+                    }
+                }
 
+                /*Al llamar al método find() del objeto RemoteMongoCollection, podemos crear una consulta
+                para encontrar los últimos cinco documentos creados por el usuario.*/
+                val query = myCollection.find()
+                    .sort(Document("time", -1))
+                    .limit(5)
+
+                //Creamos una lista mutable de objetos ' Document'
+                val result = mutableListOf<Document>()
+
+                /*Para ejecutar realmente la consulta, llamamos al metodo into(), que espera una lista como argumento.
+                Como su nombre lo indica, carga los resultados de la consulta, que no son más que objetos 'Document'. */
+                query.into(result).addOnSuccessListener{
+
+                    val output = StringBuilder("Accedió a la app: \n\n")
+
+                    result.forEach{
+                        output.append(
+                            DateUtils.getRelativeDateTimeString(
+                                this@MainActivity,
+                                it["time"] as Long,
+                                DateUtils.SECOND_IN_MILLIS,
+                                DateUtils.WEEK_IN_MILLIS,
+                                0
+                            )
+                        ).append("\n")
+                    }
+                    tviQueryMongo.text = output
+                }
+            }
     }
 
     fun connectFirebaseDB()
@@ -98,25 +138,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
         myRef.setValue(sendTest)
 
     }
-
-    /*fun connectMongoDB()
-    {
-        //Inicializando la instancia, se llama al metodo y se pasa el ID de la app
-        Stitch.initializeAppClient(
-            resources.getString(R.string.my_app_id)
-        )
-
-        //Se llama al metodo para obtener una referencia al cliente
-        stitchAppClient = Stitch.getDefaultAppClient()
-    }
-
-    fun loginUser()
-    {
-        stitchAppClient.auth.loginWithCredential(AnonymousCredential())
-            .addOnSuccessListener{
-
-            }
-    }*/
 
     override fun onClick(v: View?)
     {
