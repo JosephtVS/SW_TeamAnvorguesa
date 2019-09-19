@@ -1,0 +1,46 @@
+{{#each errors}}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{text}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{/each}}
+
+<div class="row">
+    <div class="col-md-5">
+
+    </div>
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-body">
+                <form action="/books/new-book" method="POST">
+                    <div class="form-group row">
+                        <label for="newBookID" class="col-sm-2 col-form-label">ID</label>
+                        <div class="col-sm-10">
+                            <input id="newBookID" type="text" name="id" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="newBookTitle" class="col-sm-2 col-form-label">Title</label>
+                        <div class="col-sm-10">
+                            <input id="newBookTitle" type="text" name="title" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="newBookAuthor" class="col-sm-2 col-form-label">Author</label>
+                        <div class="col-sm-10">
+                            <input id="newBookAuthor" type="text" name="author" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="newBookYear" class="col-sm-2 col-form-label">Year</label>
+                        <div class="col-sm-10">
+                            <input id="newBookYear" type="number" name="year" class="form-control">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
