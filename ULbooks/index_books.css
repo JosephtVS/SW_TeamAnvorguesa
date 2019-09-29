@@ -1,0 +1,41 @@
+*{
+
+	padding: 0px;
+	margin: 0px;
+	
+}
+#menu-principal ul{
+	list-style: none;
+}
+#menu>li{
+	display: inline-block;/*para q salga el menu horizontal*/
+float:right;
+}
+#menu>li>a{
+	display: block;
+	padding: 10px 5px;
+	width: 90px;
+}
+li ul{
+	position: right;
+	display: none;
+}
+#sub-menu a{
+	display: block;
+	padding: 10px 5px;
+	width: 90px;
+}
+li:hover ul{
+	display: block;
+}
+#menu li a{
+	background: #333;
+	color: white;
+	text-decoration: none;
+	padding: 10px 15px;
+}
+#menu li :hover{
+	background: #179AE7;
+}
+
+
